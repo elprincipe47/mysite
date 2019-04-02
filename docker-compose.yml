@@ -6,3 +6,11 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
+    depends_on:
+      - run_once
+  run_once:
+      build: .
+      command: >
+        bash -c "python manage.py migrate --no-input"
+      volumes:
+        - .:/opt/app
